@@ -1,0 +1,57 @@
+{
+  "name": "storyboarder",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Storyboarder: conversation-first desktop studio for text/comic storyboarding, low-cost rough cuts, and progressive film generation.",
+  "main": "electron/main.cjs",
+  "type": "module",
+  "scripts": {
+    "dev:web": "vite --host 127.0.0.1 --port 4173 --strictPort",
+    "dev:desktop": "wait-on tcp:4173 && ELECTRON_RENDERER_URL=http://127.0.0.1:4173 electron .",
+    "dev": "concurrently -k \"npm:dev:web\" \"npm:dev:desktop\"",
+    "start": "electron .",
+    "build:web": "vite build",
+    "build": "npm run build:web",
+    "dist": "npm run build:web && electron-builder",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "build": {
+    "appId": "com.storyboarder.desktop",
+    "productName": "Storyboarder",
+    "files": [
+      "dist/**/*",
+      "electron/**/*",
+      "package.json"
+    ],
+    "directories": {
+      "output": "release"
+    },
+    "mac": {
+      "target": [
+        "dmg",
+        "zip"
+      ],
+      "category": "public.app-category.video"
+    }
+  },
+  "dependencies": {
+    "electron": "^40.4.1",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.1",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.1.1",
+    "concurrently": "^9.2.1",
+    "electron-builder": "^26.7.0",
+    "eslint": "^9.39.1",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-react-refresh": "^0.4.24",
+    "globals": "^16.5.0",
+    "vite": "^7.3.1",
+    "wait-on": "^9.0.4"
+  }
+}
